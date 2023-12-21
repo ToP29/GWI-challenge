@@ -27,7 +27,6 @@ export async function getBreeds() {
 		)
 		const data: Breed[] = await res.json()
 		breeds.value = uniqBy([...breeds.value, ...data], 'id')
-		console.log('breeds.value:', breeds.value)
 	} catch (error) {
 		console.error(error)
 	}
