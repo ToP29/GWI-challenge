@@ -27,7 +27,6 @@ export async function getCats() {
 		)
 		const data: Cat[] = await res.json()
 		cats.value = uniqBy([...cats.value, ...data], 'id')
-		console.log('cats.value:', cats.value)
 	} catch (error) {
 		console.error(error)
 	}
@@ -50,7 +49,7 @@ export async function getCatById(id: string) {
 			_cat = await res.json()
 			const isInCats = cats.value.some((__cat) => __cat.id === id)
 			if (_cat && !isInCats) {
-				cats.value.push(_cat)
+				cats.value = [...cats.value, _cat]
 			}
 		} catch (error) {
 			console.error(error)

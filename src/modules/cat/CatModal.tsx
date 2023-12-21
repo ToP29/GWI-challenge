@@ -11,7 +11,12 @@ import { cat, isOpen } from './handler'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { getCatById } from './handler'
 import { useEffect } from 'react'
-import { FavoriteBorder } from '@mui/icons-material'
+import { Favorite, FavoriteBorder } from '@mui/icons-material'
+import {
+	addCatToFavorites,
+	favorites,
+	removeCatFromFavorites
+} from '../favorite/handler'
 
 function CatModal() {
 	const navigate = useNavigate()
@@ -77,13 +82,29 @@ function CatModal() {
 						{cat.value?.breeds[0]?.description}
 					</Typography>
 					<CardActions buttonFlex="0 1 120px" sx={{ mt: 4 }}>
-						<IconButton
-							variant="outlined"
-							color="neutral"
-							sx={{ mr: 'auto' }}
-						>
-							<FavoriteBorder />
-						</IconButton>
+						{favorites.value.includes(cat.value) ? (
+							<IconButton
+								variant="plain"
+								color="danger"
+								sx={{ mr: 'auto' }}
+								onClick={() => {
+									removeCatFromFavorites(cat.value)
+								}}
+							>
+								<Favorite />
+							</IconButton>
+						) : (
+							<IconButton
+								variant="plain"
+								color="neutral"
+								sx={{ mr: 'auto' }}
+								onClick={() => {
+									addCatToFavorites(cat.value)
+								}}
+							>
+								<FavoriteBorder />
+							</IconButton>
+						)}
 						<Button
 							variant="solid"
 							color="primary"

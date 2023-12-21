@@ -27,6 +27,7 @@ export async function getBreeds() {
 		)
 		const data: Breed[] = await res.json()
 		breeds.value = uniqBy([...breeds.value, ...data], 'id')
+		console.log('breeds.value:', breeds.value)
 	} catch (error) {
 		console.error(error)
 	}
@@ -52,11 +53,16 @@ export async function getBreedById(id: string) {
 		}
 	}
 	if (_breed) {
-		const images = await getBreedImages(_breed.id)
-		_breed.images = images
+		if (!_breed.images) {
+			const images = await getBreedImages(_breed.id)
+			_breed.images = images
+			if (!_breed.image) {
+				_breed.image = images[0]
+			}
+		}
 		const isInBreeds = breeds.value.some((__breed) => __breed.id === id)
 		if (!isInBreeds) {
-			breeds.value.push(_breed)
+			breeds.value = [...breeds.value, _breed]
 		}
 		breed.value = _breed
 	}

@@ -16,3 +16,19 @@
 .images img:hover {
 	opacity: 0.8;
 }
+
+.attributes {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	margin-top: 1em;
+}
+
+.attributes .title {
+	padding-right: 1em;
+	color: var(--joy-palette-text-tertiary);
+}
+
+.attributes .value {
+	font-weight: bold;
+	color: var(--joy-palette-text-tertiary);
+}

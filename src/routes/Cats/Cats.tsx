@@ -1,5 +1,5 @@
 import { Button, Card, Box, Typography, CircularProgress } from '@mui/joy'
-import './Root.css'
+import './Cats.css'
 import {
 	additionalCatsLoading,
 	cats,

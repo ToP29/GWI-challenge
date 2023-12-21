@@ -1,4 +1,4 @@
-import { Button, Card, Box, Typography, CircularProgress } from '@mui/joy'
+import { Button, Box, Typography, CircularProgress } from '@mui/joy'
 import './Breeds.css'
 import {
 	additionalBreedsLoading,

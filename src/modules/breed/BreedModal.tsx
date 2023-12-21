@@ -1,6 +1,4 @@
 import {
-	Button,
-	CardActions,
 	CircularProgress,
 	Modal,
 	ModalClose,
@@ -8,7 +6,7 @@ import {
 	Typography
 } from '@mui/joy'
 import { breed, getBreedByLocation, isOpen } from './handler'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import './BreedModal.css'
 
@@ -65,18 +63,17 @@ function BreedModal() {
 						<div className="images">
 							{breed.value.images?.length > 0
 								? breed.value.images.map((image) => (
-										<Link
-											to={`/?id=${image?.id}`}
+										<img
 											key={image?.id}
-										>
-											<img
-												key={image?.id}
-												src={image?.url}
-												loading="lazy"
-												alt={image?.id}
-												style={{ maxWidth: '100%' }}
-											/>
-										</Link>
+											src={image?.url}
+											loading="lazy"
+											alt={image?.id}
+											style={{ maxWidth: '100%' }}
+											onClick={() => {
+												navigate(`/?id=${image?.id}`)
+												isOpen.value = false
+											}}
+										/>
 									))
 								: 'none images'}
 						</div>
@@ -88,6 +85,36 @@ function BreedModal() {
 						>
 							{breed.value.description}
 						</Typography>
+						<div className="attributes">
+							<div className="title">Origin</div>
+							<div className="value">{breed.value.origin}</div>
+							<div className="title">Life span</div>
+							<div className="value">{breed.value.life_span}</div>
+							<div className="title">Adaptability</div>
+							<div className="value">
+								{breed.value.adaptability}
+							</div>
+							<div className="title">Affection level</div>
+							<div className="value">
+								{breed.value.affection_level}
+							</div>
+							<div className="title">Child friendly</div>
+							<div className="value">
+								{breed.value.child_friendly}
+							</div>
+							<div className="title">Dog friendly</div>
+							<div className="value">
+								{breed.value.dog_friendly}
+							</div>
+							<div className="title">Energy level</div>
+							<div className="value">
+								{breed.value.energy_level}
+							</div>
+							<div className="title">Intelligence</div>
+							<div className="value">
+								{breed.value.intelligence}
+							</div>
+						</div>
 					</>
 				)}
 			</Sheet>
