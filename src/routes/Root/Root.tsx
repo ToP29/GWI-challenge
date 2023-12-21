@@ -9,10 +9,13 @@ import {
 } from '$modules/cat/handler'
 import CatItem from '$modules/cat/CatItem'
 import CatModal from '$src/modules/cat/CatModal'
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 
 function Root() {
-	const catsQuery = useQuery('cats', getInitialCats)
+	const catsQuery = useQuery({
+		queryKey: ['cats'],
+		queryFn: getInitialCats
+	})
 
 	return (
 		<>

@@ -89,7 +89,11 @@ function CatModal() {
 							color="primary"
 							onClick={() => {
 								const breedId = cat.value?.breeds[0]?.id
-								if (breedId) navigate(`/breeds?id=${breedId}`)
+								if (breedId) {
+									navigate(`/breeds?id=${breedId}`)
+									isOpen.value = false
+									cat.value = null
+								}
 							}}
 						>
 							Breed detail

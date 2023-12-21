@@ -13,10 +13,11 @@ const API_KEY =
 	'live_CbVJr4gepLqR2VixUSKzIZHk6bg6zlQUwiLgZBXvhHfyXyFza0bGVZUPe85QB6dM' // I would put this to env variable
 
 export async function getInitialBreeds() {
-	if (Array.isArray(breeds.value) && breeds.value.length > 0) return
+	if (Array.isArray(breeds.value) && breeds.value.length > 0) return null
 	initialBreedsLoading.value = true
 	await getBreeds()
 	initialBreedsLoading.value = false
+	return breeds.value
 }
 
 export async function getBreeds() {
@@ -25,9 +26,7 @@ export async function getBreeds() {
 			`https://api.thecatapi.com/v1/breeds?api_key=${API_KEY}&limit=10&page=${page.value}`
 		)
 		const data: Breed[] = await res.json()
-		console.log('data:', data)
 		breeds.value = uniqBy([...breeds.value, ...data], 'id')
-		console.log('breeds.value:', breeds.value)
 	} catch (error) {
 		console.error(error)
 	}
@@ -48,7 +47,6 @@ export async function getBreedById(id: string) {
 				`https://api.thecatapi.com/v1/breeds/${id}?api_key=${API_KEY}&limit=1`
 			)
 			_breed = await res.json()
-			console.log('_breed:', _breed)
 		} catch (error) {
 			console.error(error)
 		}
@@ -61,7 +59,6 @@ export async function getBreedById(id: string) {
 			breeds.value.push(_breed)
 		}
 		breed.value = _breed
-		console.log('breed.value:', breed.value)
 	}
 }
 
@@ -74,4 +71,12 @@ async function getBreedImages(breedId: string) {
 	} catch (error) {
 		console.error(error)
 	}
+}
+
+export async function getBreedByLocation() {
+	const id = new URLSearchParams(window.location.search).get('id')
+	if (!id) return null
+	isOpen.value = true
+	await getBreedById(id)
+	return breed.value
 }

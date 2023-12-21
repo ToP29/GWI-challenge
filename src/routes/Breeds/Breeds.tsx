@@ -9,11 +9,13 @@ import {
 } from '$modules/breed/handler'
 import BreedItem from '$modules/breed/BreedItem'
 import BreedModal from '$src/modules/breed/BreedModal'
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 
 function Root() {
-	const breedsQuery = useQuery('breeds', getInitialBreeds)
-
+	const breedsQuery = useQuery({
+		queryKey: ['breeds'],
+		queryFn: getInitialBreeds
+	})
 	return (
 		<>
 			<Typography level="h1" m={5}>

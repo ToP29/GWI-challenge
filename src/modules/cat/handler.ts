@@ -13,10 +13,11 @@ const API_KEY =
 	'live_CbVJr4gepLqR2VixUSKzIZHk6bg6zlQUwiLgZBXvhHfyXyFza0bGVZUPe85QB6dM' // I would put this to env variable
 
 export async function getInitialCats() {
-	if (Array.isArray(cats.value) && cats.value.length > 0) return
+	if (Array.isArray(cats.value) && cats.value.length > 0) return null
 	initialCatsLoading.value = true
 	await getCats()
 	initialCatsLoading.value = false
+	return cats.value
 }
 
 export async function getCats() {

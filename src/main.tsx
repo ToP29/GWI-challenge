@@ -7,7 +7,7 @@ import Root from '$routes/Root/Root'
 import { CssVarsProvider, extendTheme } from '@mui/joy/styles'
 import Breed from '$routes/Breed/Breed'
 import Breeds from '$routes/Breeds/Breeds'
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 const theme = extendTheme({})
 
