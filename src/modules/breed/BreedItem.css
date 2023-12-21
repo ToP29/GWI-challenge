@@ -1,0 +1,8 @@
+.breed {
+	aspect-ratio: 4/3;
+	cursor: pointer;
+	transition: opacity 0.2s ease-in-out;
+}
+.breed:hover {
+	opacity: 0.8;
+}

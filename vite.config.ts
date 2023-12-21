@@ -9,6 +9,7 @@ export default defineConfig({
 		alias: {
 			$src: path.resolve(__dirname, './src/'),
 			$lib: `${path.resolve(__dirname, './src/lib/')}`,
+			$modules: `${path.resolve(__dirname, './src/modules/')}`,
 			$components: `${path.resolve(__dirname, './src/components/')}`,
 			$routes: `${path.resolve(__dirname, './src/routes/')}`,
 			$assets: `${path.resolve(__dirname, './src/assets/')}`

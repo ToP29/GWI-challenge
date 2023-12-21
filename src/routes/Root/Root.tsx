@@ -1,39 +1,59 @@
-import { useState } from 'react'
-import reactLogo from '$assets/react.svg'
-import viteLogo from '$assets/vite.svg'
+import { Button, Card, Box, Typography, CircularProgress } from '@mui/joy'
 import './Root.css'
+import {
+	additionalCatsLoading,
+	cats,
+	initialCatsLoading,
+	loadMoreCats,
+	getInitialCats
+} from '$modules/cat/handler'
+import CatItem from '$modules/cat/CatItem'
+import CatModal from '$src/modules/cat/CatModal'
+import { useQuery } from 'react-query'
 
-function App() {
-	const [count, setCount] = useState(0)
+function Root() {
+	const catsQuery = useQuery('cats', getInitialCats)
 
 	return (
 		<>
-			<div>
-				<a href="https://vitejs.dev" target="_blank">
-					<img src={viteLogo} className="logo" alt="Vite logo" />
-				</a>
-				<a href="https://react.dev" target="_blank">
-					<img
-						src={reactLogo}
-						className="logo react"
-						alt="React logo"
-					/>
-				</a>
-			</div>
-			<h1>Vite + React</h1>
-			<div className="card">
-				<button onClick={() => setCount((count) => count + 1)}>
-					count is {count}
-				</button>
-				<p>
-					Edit <code>src/Root.tsx</code> and save to test HMR
-				</p>
-			</div>
-			<p className="read-the-docs">
-				Click on the Vite and React logos to learn more
-			</p>
+			<Typography level="h1" m={5}>
+				Cats
+			</Typography>
+			<Box p={5}>
+				<div className="cats">
+					{initialCatsLoading.value ? (
+						<CircularProgress size="lg" />
+					) : Array.isArray(cats.value) && cats.value.length > 0 ? (
+						<>
+							{cats.value.map((cat) => (
+								<CatItem key={cat.id} cat={cat} />
+							))}
+						</>
+					) : (
+						<div>No cats</div>
+					)}
+				</div>
+				{initialCatsLoading.value !== true && (
+					<Box
+						sx={{
+							display: 'flex',
+							alignItems: 'center',
+							justifyContent: 'center',
+							paddingBlock: '2em'
+						}}
+					>
+						<Button
+							onClick={() => loadMoreCats()}
+							loading={additionalCatsLoading.value}
+						>
+							Load 10 more cats
+						</Button>
+					</Box>
+				)}
+			</Box>
+			<CatModal />
 		</>
 	)
 }
 
-export default App
+export default Root
