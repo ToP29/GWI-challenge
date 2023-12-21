@@ -53,6 +53,7 @@ export async function getBreedById(id: string) {
 	}
 	if (_breed) {
 		if (!_breed.images) {
+			// Shitty types, I would improve this if I had more time
 			const images = await getBreedImages(_breed.id)
 			_breed.images = images
 			if (!_breed.image) {
